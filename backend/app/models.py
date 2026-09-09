@@ -11,9 +11,15 @@ class Base(DeclarativeBase):
 class Employee(Base):
     __tablename__ = "employees"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+        index=True
+    )
 
-    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    name: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False
+    )
 
     email: Mapped[str] = mapped_column(
         String(150),

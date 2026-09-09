@@ -1,22 +1,30 @@
-from pydantic import BaseModel, EmailStr
-from typing import Optional
+from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict
 
 
 class EmployeeCreate(BaseModel):
     name: str
-    email: EmailStr
+    email: str
+    phone: str | None = None
     department: str
-    designation: str
+    salary: float
+
+class EmployeeUpdate(BaseModel):
+    name: str
+    email: str
+    phone: str | None = None
+    department: str
     salary: float
 
 
 class EmployeeResponse(BaseModel):
     id: int
     name: str
-    email: EmailStr
+    email: str
+    phone: str | None
     department: str
-    designation: str
     salary: float
+    created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
