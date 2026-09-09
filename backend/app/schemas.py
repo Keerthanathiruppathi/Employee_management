@@ -1,18 +1,18 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class EmployeeCreate(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     phone: str | None = None
     department: str
     salary: float
 
 class EmployeeUpdate(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     phone: str | None = None
     department: str
     salary: float
