@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class EmployeeCreate(BaseModel):
@@ -8,14 +8,14 @@ class EmployeeCreate(BaseModel):
     email: EmailStr
     phone: str | None = None
     department: str
-    salary: float
+    salary: float = Field(gt=0)
 
 class EmployeeUpdate(BaseModel):
     name: str
     email: EmailStr
     phone: str | None = None
     department: str
-    salary: float
+    salary: float = Field(gt=0)
 
 
 class EmployeeResponse(BaseModel):

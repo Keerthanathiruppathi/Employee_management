@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -33,8 +34,18 @@ def create_employee(
     )
 
     db.add(new_employee)
-    db.commit()
-    db.refresh(new_employee)
+
+    try:
+        db.commit()
+        db.refresh(new_employee)
+
+    except IntegrityError:
+        db.rollback()
+
+        raise HTTPException(
+            status_code=409,
+            detail="An employee with this email already exists"
+        )
 
     return new_employee
 @router.get(
